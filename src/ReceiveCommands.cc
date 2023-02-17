@@ -36,7 +36,7 @@ const char* ADD_NEXT_CLIENT_DISCONNECT_HOOK_NAME = "add_next_game_client";
 vector<MenuItem> quest_categories_menu({
   MenuItem(static_cast<uint32_t>(QuestCategory::RETRIEVAL), u"Retrieval", u"$E$C6Quests that involve\nretrieving an object", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::EXTERMINATION), u"ARKs", u"$E$C6Limited time ARKs\nmissions (WIP)", 0),
-  MenuItem(static_cast<uint32_t>(QuestCategory::EVENT) u"Holiday Quests",u"$E$C6Quests related to\nthe current season\nor holiday", 0),
+  MenuItem(static_cast<uint32_t>(QuestCategory::EVENT), u"Holiday Quests", u"$E$C6Quests related to\nthe current season\nor holiday", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::SHOP), u"Shops", u"$E$C6Quests that contain\nshops", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::VR), u"Virtual Reality", u"$E$C6Quests that are\ndone in a simulator", MenuItem::Flag::INVISIBLE_ON_DC | MenuItem::Flag::INVISIBLE_ON_PC),
   MenuItem(static_cast<uint32_t>(QuestCategory::TOWER), u"Control Tower", u"$E$C6Quests that take\nplace at the Control\nTower", MenuItem::Flag::INVISIBLE_ON_DC | MenuItem::Flag::INVISIBLE_ON_PC),
