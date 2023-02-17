@@ -104,4 +104,6 @@ struct QuestIndex {
   std::shared_ptr<const std::string> get_gba(const std::string& name) const;
   std::vector<std::shared_ptr<const Quest>> filter(GameVersion version,
     bool is_dcv1, QuestCategory category) const;
+  std::vector<std::shared_ptr<const Quest>> filter(GameVersion version,
+    bool is_dcv1, QuestCategory category, uint8_t eventid) const;
 };

@@ -1057,6 +1057,57 @@ vector<shared_ptr<const Quest>> QuestIndex::filter(
   return ret;
 }
 
+vector<shared_ptr<const Quest>> QuestIndex::filter(
+    GameVersion version, bool is_dcv1, QuestCategory category, uint8_t eventid) const {
+  auto it = this->version_menu_item_id_to_quest.lower_bound(make_pair(version, 0));
+  auto end_it = this->version_menu_item_id_to_quest.upper_bound(make_pair(version, 0xFFFFFFFF));
+
+  vector<shared_ptr<const Quest>> ret;
+  for (; it != end_it; it++) {
+    shared_ptr<const Quest> q = it->second;
+    if ((q->is_dcv1 != is_dcv1) || (q->category != category)) {
+      continue;
+    }
+    if (category == QuestCategory::EVENT) {
+      // switch on eventid
+      switch (eventid) {
+      case 1: // xmas
+        if (q->internal_id != 496) {
+          continue;
+        }
+        break;
+      case 3: // val
+        if (q->internal_id != 95) {
+          continue;
+        }
+      case 5: // halloween
+        if (q->internal_id != 497) {
+          continue;
+        }
+      case 6: // sonic
+        if (q->internal_id != 73) {
+          continue;
+        }
+      case 8: // summer
+        if (q->internal_id != 232 && q->internal_id != 239) {
+          continue;
+        }
+      case 9: // white
+        if (q->internal_id != 96 && q->internal_id != 220) {
+          continue;
+        }
+      default:
+        if (q->internal_id != 137 && q->internal_id != 138 && q->internal_id != 335) {
+          continue;
+        }
+        break;
+      }
+    }
+    ret.emplace_back(q);
+  }
+
+  return ret;
+}
 
 
 static string create_download_quest_file(const string& compressed_data,
