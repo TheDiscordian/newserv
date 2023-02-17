@@ -1080,22 +1080,27 @@ vector<shared_ptr<const Quest>> QuestIndex::filter(
         if (q->internal_id != 95) {
           continue;
         }
+        break;
       case 5: // halloween
         if (q->internal_id != 497) {
           continue;
         }
+        break;
       case 6: // sonic
         if (q->internal_id != 73) {
           continue;
         }
+        break;
       case 8: // summer
         if (q->internal_id != 232 && q->internal_id != 239) {
           continue;
         }
+        break;
       case 9: // white
         if (q->internal_id != 96 && q->internal_id != 220) {
           continue;
         }
+        break;
       default:
         if (q->internal_id != 137 && q->internal_id != 138 && q->internal_id != 335) {
           continue;
