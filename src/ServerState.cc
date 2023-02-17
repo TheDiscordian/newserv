@@ -51,8 +51,8 @@ ServerState::ServerState()
         Lobby::Flag::PERSISTENT |
         (is_non_v1_only ? Lobby::Flag::NON_V1_ONLY : 0) | 
         (is_ep3_only ? Lobby::Flag::EPISODE_3_ONLY : 0);
-    l->block = x + 1;
-    l->type = x;
+    l->block = 1;
+    l->type = x; // type is the lobby (IE: the second number of 02-11)
     l->name = lobby_name;
     l->max_clients = 12;
 

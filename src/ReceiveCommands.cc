@@ -2202,6 +2202,7 @@ static void on_1F(shared_ptr<ServerState> s,
       *s->information_menu_for_version(c->version()), true);
 }
 
+// Transport -> Change SHIP
 static void on_A0(shared_ptr<ServerState> s, shared_ptr<Client> c,
     uint16_t, uint32_t, const string&) {
   // The client sends data in this command, but none of it is important. We
@@ -2227,6 +2228,7 @@ static void on_A0(shared_ptr<ServerState> s, shared_ptr<Client> c,
       s->name_to_port_config.at(port_name)->port);
 }
 
+// Transport -> Change BLOCK
 static void on_A1(shared_ptr<ServerState> s, shared_ptr<Client> c,
     uint16_t command, uint32_t flag, const string& data) {
   // newserv doesn't have blocks; treat block change the same as ship change

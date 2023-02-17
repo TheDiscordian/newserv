@@ -382,6 +382,11 @@ static void proxy_command_send_server(shared_ptr<ServerState>,
 
 static void server_command_cheat(shared_ptr<ServerState>, shared_ptr<Lobby> l,
     shared_ptr<Client> c, const std::u16string&) {
+
+  
+  send_text_message_printf(l, "Cheats are disabled on this server.");
+  return;
+
   check_is_game(l, true);
   check_is_leader(l, c);
 
@@ -565,6 +570,8 @@ static void proxy_command_secid(shared_ptr<ServerState>,
 static void server_command_rand(shared_ptr<ServerState>, shared_ptr<Lobby> l,
     shared_ptr<Client> c, const std::u16string& args) {
   check_is_game(l, false);
+  send_text_message_printf(l, "Rand is disabled on this server.");
+  return;
 
   if (!args[0]) {
     c->options.override_random_seed = -1;
@@ -659,6 +666,8 @@ static void server_command_max_level(shared_ptr<ServerState>, shared_ptr<Lobby> 
 
 static void server_command_edit(shared_ptr<ServerState> s, shared_ptr<Lobby> l,
     shared_ptr<Client> c, const std::u16string& args) {
+  send_text_message_printf(l, "Edit is disabled on this server.");
+  return;
   check_is_game(l, false);
   check_version(c, GameVersion::BB);
 
