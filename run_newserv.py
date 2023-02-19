@@ -62,7 +62,7 @@ def arks_quest_manager():
     while RUNNING:
         if quest_index == 0:
             new_quest = random.choice(arks_quest_data)
-        if new_quest['id'] == current_quest['id']:
+        if new_quest['quests'][quest_index]['id'] == current_quest['quests'][quest_index]['id']:
             continue
         current_quest = new_quest
         write_to_stdin(EMERGENCY_PRE_ANNOUCEMENT)
