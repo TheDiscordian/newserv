@@ -225,6 +225,9 @@ h.start()
 e = threading.Thread(target=event_watcher)
 e.daemon = True
 e.start()
+q = threading.Thread(target=arks_quest_manager)
+q.daemon = True
+q.start()
 
 while True:
     user_input = input("")
