@@ -35,7 +35,7 @@ const char* ADD_NEXT_CLIENT_DISCONNECT_HOOK_NAME = "add_next_game_client";
 
 vector<MenuItem> quest_categories_menu({
   MenuItem(static_cast<uint32_t>(QuestCategory::RETRIEVAL), u"Retrieval", u"$E$C6Quests that involve\nretrieving an object", 0),
-  MenuItem(static_cast<uint32_t>(QuestCategory::EXTERMINATION), u"ARKs", u"$E$C6Limited time ARKs\nmissions (WIP)", 0),
+  MenuItem(static_cast<uint32_t>(QuestCategory::EXTERMINATION), u"ARKs", u"$E$C6Limited time ARKs\nmissions", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::EVENT), u"Holiday Quests", u"$E$C6Quests related to\nthe current season\nor holiday", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::SHOP), u"Shops", u"$E$C6Quests that contain\nshops", 0),
   MenuItem(static_cast<uint32_t>(QuestCategory::VR), u"Virtual Reality", u"$E$C6Quests that are\ndone in a simulator", MenuItem::Flag::INVISIBLE_ON_DC | MenuItem::Flag::INVISIBLE_ON_PC),
@@ -1956,7 +1956,7 @@ static void on_10(shared_ptr<ServerState> s, shared_ptr<Client> c,
       shared_ptr<Lobby> l = c->lobby_id ? s->find_lobby(c->lobby_id) : nullptr;
       auto quests = s->quest_index->filter(c->version(),
           c->flags & Client::Flag::IS_DC_V1,
-          static_cast<QuestCategory>(item_id & 0xFF), s->pre_lobby_event);
+          static_cast<QuestCategory>(item_id & 0xFF), s->pre_lobby_event, s->current_arks_quest_id);
 
       // Hack: Assume the menu to be sent is the download quest menu if the
       // client is not in any lobby

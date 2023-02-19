@@ -4,12 +4,54 @@ PORT = 8000
 LICENSE = "system/licenses.nsi"
 DIRECTORY = 'www'
 BINARY = "./newserv"
+RUNNING = True
 
 REG_KEYS = []
 SERIALS = []
 
 Handler = http.server.SimpleHTTPRequestHandler
 newserv = subprocess.Popen(BINARY, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+
+event_data = [
+    {'start': '02/01', 'event': 'val'},
+    {'start': '02/21', 'event': 'spring'},
+    {'start': '03/01', 'event': 'white'},
+    {'start': '03/21', 'event': 'spring'},
+    {'start': '04/01', 'event': 'easter'},
+    {'start': '04/21', 'event': 'spring'},
+    {'start': '06/07', 'event': 'wedding'},
+    {'start': '06/16', 'event': 'sonic'},
+    {'start': '07/01', 'event': 'summer'},
+    {'start': '09/21', 'event': 'fall'},
+    {'start': '10/01', 'event': 'hall'},
+    {'start': '11/01', 'event': 'fall'},
+    {'start': '12/01', 'event': 'xmas'},
+    {'start': '12/27', 'event': 'newyear'}
+]
+
+# Return the current event
+def current_event():
+    now = time.localtime()
+    for event in event_data:
+        if now.tm_mon >= int(event['start'][:2]) and now.tm_mday >= int(event['start'][3:]):
+            return event['event']
+    return event_data[-1]['event']
+
+last_event = current_event()
+
+def check_event():
+    global last_event
+    event = current_event()
+    if event != last_event:
+        last_event = event
+        write_to_stdin("set-event " + event)
+
+def event_watcher():
+    time.sleep(5)
+    write_to_stdin("set-event %s" % current_event())
+    while RUNNING:
+        time.sleep(60)
+        check_event()
 
 # define a function to write data to stdin
 def write_to_stdin(data, echo=True):
@@ -130,9 +172,13 @@ t.start()
 h = threading.Thread(target=run_http_serv)
 h.daemon = True
 h.start()
+e = threading.Thread(target=event_watcher)
+e.daemon = True
+e.start()
 
 while True:
     user_input = input("")
     write_to_stdin(user_input, False)
 
+RUNNING = False
 os._exit(0)

@@ -68,7 +68,7 @@ struct ServerState {
   std::shared_ptr<const GSLArchive> bb_data_gsl;
   std::shared_ptr<const RareItemSet> rare_item_set;
 
-  uint32_t current_arks_quest_id;
+  int64_t current_arks_quest_id;
 
   std::shared_ptr<Episode3::TournamentIndex> ep3_tournament_index;
 

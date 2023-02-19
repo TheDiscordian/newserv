@@ -129,6 +129,8 @@ Server commands:\n\
     Set the event in all lobbies, and in the main menu before joining a lobby.\n\
     <event> can be none, xmas, val, easter, hallo, sonic, newyear, summer,\n\
     white, wedding, fall, s-spring, s-summer, or spring.\n\
+  set-quest <id>\n\
+    Set the current ARKs quest to display in the ARKs quest menu.\n\
   set-ep3-menu-song <song-num>\n\
     Set the song that plays in the main menu for Episode III clients. If an\n\
     event is also set, the event's visuals appear but this song still plays.\n\
@@ -163,78 +165,6 @@ Server commands:\n\
   tournament-state \"Tournament Name\"\n\
     Show the current state of a tournament. The quotes are required unless the\n\
     tournament name contains no spaces.\n\
-\n\
-Proxy commands:\n\
-  sc <data>\n\
-    Send a command to the client. This command also can be used to send data to\n\
-    a client on the game server.\n\
-  ss <data>\n\
-    Send a command to the server.\n\
-  chat <text>\n\
-    Send a chat message to the server.\n\
-  dchat <data>\n\
-    Send a chat message to the server with arbitrary data in it.\n\
-  info-board <text>\n\
-    Set your info board contents. This will affect the current session only,\n\
-    and will not be saved for future sessions.\n\
-  info-board-data <data>\n\
-    Set your info board contents with arbitrary data. Like the above, affects\n\
-    the current session only.\n\
-  marker <color-id>\n\
-    Change your lobby marker color.\n\
-  warp <area-id>\n\
-    Send yourself to a specific area.\n\
-  set-override-section-id [section-id]\n\
-    Override the section ID for games you create or join. This affects the\n\
-    active drop chart if you are the leader of the game and the server doesn't\n\
-    override drops entirely. If no argument is given, clears the override.\n\
-  set-override-event [event]\n\
-    Override the lobby event for all lobbies and games you join. This applies\n\
-    only to you; other players do not see this override.  If no argument is\n\
-    given, clears the override.\n\
-  set-override-lobby-number [number]\n\
-    Override the lobby type for all lobbies you join. This applies only to you;\n\
-    other players do not see this override. If no argument is given, clears the\n\
-    override.\n\
-  set-chat-filter <on|off>\n\
-    Enable or disable chat filtering (enabled by default). Chat filtering\n\
-    applies newserv\'s standard character replacements to chat messages; for\n\
-    example, $ becomes a tab character and # becomes a newline.\n\
-  set-infinite-hp <on|off>\n\
-  set-infinite-tp <on|off>\n\
-    Enable or disable infinite HP or TP. When infinite HP is enabled, attacks\n\
-    that would kill you in one hit will still do so.\n\
-  set-switch-assist <on|off>\n\
-    Enable or disable switch assist. When switch assist is on, the proxy will\n\
-    remember the last \"enable switch\" command that you send, and will send it\n\
-    to you and the server when you step on another switch. Using this, you can\n\
-    unlock any doors that require two players to stand on switches by touching\n\
-    both switches yourself. With this, all online maps can be completed solo.\n\
-  set-save-files <on|off>\n\
-    Enable or disable saving of game files (disabled by default). When this is\n\
-    on, any file that the remote server sends to the client will be saved to\n\
-    the current directory. This includes data like quests, Episode 3 card\n\
-    definitions, and GBA games.\n\
-  set-block-function-calls [return-value]\n\
-    Enable blocking of function calls from the server. When enabled, the proxy\n\
-    responds as if the function was called (with the given return value), but\n\
-    does not send the code to the client. To stop blocking function calls, omit\n\
-    the return value.\n\
-  create-item <data>\n\
-    Create an item as if the client had run the $item command.\n\
-  set-next-item <data>\n\
-    Set the next item to be dropped.\n\
-  close-idle-sessions\n\
-    Closes all sessions that don\'t have a client and server connected.\n\
-\n\
-If there are multiple clients connected, or multiple proxy sessions open, many\n\
-of the above commands will fail since they can\'t determine which session should\n\
-be affected. To specify a session, prefix the command with `on <ident>`. For\n\
-game server sessions, <ident> may be the client\'s ID (e.g. C-3), player name,\n\
-license serial number (specified in hex or in decimal), or BB account username.\n\
-For proxy sessions, <ident> may only be the session ID (which is generally the\n\
-same as the client\'s serial number). For example, to send a ping to the proxy\n\
-session with ID 17205AE4, run the command `on 17205AE4 sc 1D 00 04 00`.\n\
 ");
 
 
@@ -422,6 +352,12 @@ session with ID 17205AE4, run the command `on 17205AE4 sc 1D 00 04 00`.\n\
       l->event = event_id;
     }
     send_change_event(this->state, event_id);
+
+  } else if (command_name == "set-quest") {
+    try {
+      this->state->current_arks_quest_id = stoll(command_args);
+    } catch (const invalid_argument&) {
+    } catch (const out_of_range&) { }
 
   } else if (command_name == "set-ep3-menu-song") {
     this->state->ep3_menu_song = stoul(command_args, nullptr, 0);

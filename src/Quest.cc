@@ -1058,7 +1058,7 @@ vector<shared_ptr<const Quest>> QuestIndex::filter(
 }
 
 vector<shared_ptr<const Quest>> QuestIndex::filter(
-    GameVersion version, bool is_dcv1, QuestCategory category, uint8_t eventid) const {
+    GameVersion version, bool is_dcv1, QuestCategory category, uint8_t event_id, int64_t arks_quest_id) const {
   auto it = this->version_menu_item_id_to_quest.lower_bound(make_pair(version, 0));
   auto end_it = this->version_menu_item_id_to_quest.upper_bound(make_pair(version, 0xFFFFFFFF));
 
@@ -1069,8 +1069,8 @@ vector<shared_ptr<const Quest>> QuestIndex::filter(
       continue;
     }
     if (category == QuestCategory::EVENT) {
-      // switch on eventid
-      switch (eventid) {
+      // switch on event_id
+      switch (event_id) {
       case 1: // xmas
         if (q->internal_id != 496) {
           continue;
@@ -1107,6 +1107,8 @@ vector<shared_ptr<const Quest>> QuestIndex::filter(
         }
         break;
       }
+    } else if (category == QuestCategory::EXTERMINATION && q->internal_id != arks_quest_id) {
+        continue;
     }
     ret.emplace_back(q);
   }
