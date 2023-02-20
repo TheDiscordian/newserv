@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PSO License Creator</title>
+
+	<style>
+		body {
+			color: white;
+			background-color: black;
+			background-image: url("bg.png");
+			background-position-y: -100px;
+		}
+		/* box is in the centre of the page */
+		.box {
+			width: 30em;
+			position: absolute;
+			top: 30%;
+			left: 50%;
+			margin-top: -100px;
+			margin-left: -200px;
+			border: 1px solid white;
+			padding: 10px;
+			padding-bottom: 1.5em;
+			background-color: black;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 0;
+		}
+	</style>
+
+	<script>
+		async function register() {
+			document.getElementById("reg_btn").disabled = true;
+			var regKey = document.getElementsByName("reg-key")[0].value;
+			var password = document.getElementsByName("password")[0].value;
+			var request = new XMLHttpRequest();
+			request.open("POST", "/pso-register", true);
+			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			request.send("reg-key=" + regKey + "&password=" + password);
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200) {
+					let data = JSON.parse(request.responseText);
+					if (data["err"] != undefined) {
+						alert(data["err"]);
+						document.getElementById("reg_btn").disabled = false;
+						return;
+					}
+					// data["serial"] is a string of length 10, which should be output as
+					// "xx-xxxx-xxxx" into the "sn" element
+					document.getElementById("sn").innerHTML = data["serial"].substring(0, 2) + "-" +
+						data["serial"].substring(2, 6) + "-" + data["serial"].substring(6, 10);
+					// data["access-key"] is a string of length 12, which should be output as
+					// "xxx-xxx-xxx" into the "ac" element
+					document.getElementById("ac").innerHTML = data["access-key"].substring(0, 4) +
+						"-" + data["access-key"].substring(4, 8) + "-" + data["access-key"].substring(8, 12);
+
+					document.getElementById("reg_info").hidden = false;
+				} else if (request.status == "404" || request.status == "500") {
+					alert(request.responseText);
+					document.getElementById("reg_btn").disabled = false;
+				}
+			}
+		}
+
+	</script>
+</head>
+
+<body>
+	<div class="box">
+		<h1>PSO License Creator</h1>
+		<p style="text-align: center;margin-top:0;">For DiscoNet!</p>
+		<p>Max password length is 8 characters. Don't make it anything important or complicated, it's not very secure and it's pretty janky.</p>
+		<!-- Form with two fiends that sends a POST request to /some-page -->
+		<label style="width: 8em;display: inline-block;">Registration Key: </label><input type="text" name="reg-key" placeholder=""><br />
+		<label style="width: 8em;display: inline-block;">Account Password: </label><input type="password" name="password" maxlength="8" placeholder="">
+		<input type="submit" onclick="register()" id="reg_btn" value="Register">
+		<p style="font-weight:bold;font-size:2em;margin-bottom:0;" id="reg_info" hidden>
+			<span style="width: 7em;display: inline-block;">Serial Number:</span> <span style="color:#0f0;" id="sn"></span><br />
+			<span style="width: 7em;display: inline-block;">Access Key:</span> <span style="color:#ff0;" id="ac"></span><br />
+			<spen style="color: #f00;font-style: italic;font-size: 0.5em;display: inline-block;font-weight: normal;font-family: sans-serif;">This is your login information, write this down somewhere along with the password you just created.</spen>
+		</p>
+	</div>
+</body>
+</html>
