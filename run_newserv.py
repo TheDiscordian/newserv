@@ -30,48 +30,49 @@ event_data = [
 ]
 
 arks_quest_data = [
-    {'time': 15, 'quests': [
+    {'time': 20, 'quests': [
         {'id': 101, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
         {'id': 102, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the caves!'},
         {'id': 103, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
         {'id': 104, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}]},
-    {'time': 15, 'quests': [
+    {'time': 27.5, 'quests': [
         {'id': 108, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest. Exterminate     them.'},
         {'id': 109, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves. Exterminate      them.'},
         {'id': 110, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      mines. Exterminate      them.'},
         {'id': 111, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      ruins. Exterminate      them.'}]},
-    {'time': 20, 'quests': [
+    {'time': 45, 'quests': [
         {'id': 117, 'ann': 'We need your help with a top-secret mission!'}]},
-    {'time': 25, 'quests': [
-        {'id': 223, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the north  jungle and seaside!'},
-        {'id': 224, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
-        {'id': 225, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        seabed!'},
-        {'id': 226, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}]},
+    {'time': 27.5, 'quests': [
+        {'id': 233, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the north  jungle and seaside!'},
+        {'id': 234, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
+        {'id': 235, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        seabed!'},
+        {'id': 236, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}]},
     ]
 
 MIN_TIME_BETWEEN_QUESTS = 6
-EXTRA_TIME_BETWEEN_QUESTS = 5
+EXTRA_TIME_BETWEEN_QUESTS = 4
 EMERGENCY_PRE_ANNOUNCEMENT = "CALLING ARKS MEMBERS!EMERGENCY MESSAGE    INCOMING PLEASE STANDBY FOR FURTHER         INSTURCTIONS"
 EMERGENCY_POST_ANNOUNCEMENT ="PLEASE REPORT TO THE QUEST COUNTER FOR     FURTHER INSTRUCTIONS"
-MINS_UNTIL_ANNOUNCEMENT = 2
+MINS_UNTIL_ANNOUNCEMENT = 1
 
 def arks_quest_manager():
     time.sleep(MIN_TIME_BETWEEN_QUESTS / 2 * 60)
-    current_quest = 0
+    current_quest = None
     quest_index = 0
     while RUNNING:
         if quest_index == 0:
             new_quest = random.choice(arks_quest_data)
-        if new_quest['quests'][quest_index]['id'] == current_quest['quests'][quest_index]['id']:
-            continue
+            if current_quest != None and new_quest['quests'][quest_index]['id'] == current_quest['quests'][quest_index]['id']:
+                continue
         current_quest = new_quest
-        write_to_stdin(EMERGENCY_PRE_ANNOUCEMENT)
-        time.sleep(MINS_UNTIL_ANNOUNCEMENT * 60)
-        write_to_stdin(current_quest['quests'][quest_index]['ann'])
-        time.sleep(6)
-        write_to_stdin(EMERGENCY_POST_ANNOUNCEMENT)
+        write_to_stdin("announce " + EMERGENCY_PRE_ANNOUNCEMENT)
+        time.sleep(MINS_UNTIL_ANNOUNCEMENT * 60 - 1)
         write_to_stdin("set-quest %d" % (current_quest['quests'][quest_index]['id']))
-        time.sleep(current_quest['quests'][quest_index]['time'] * 60)
+        time.sleep(1)
+        write_to_stdin("announce " + current_quest['quests'][quest_index]['ann'])
+        time.sleep(7.5)
+        write_to_stdin("announce " + EMERGENCY_POST_ANNOUNCEMENT)
+        time.sleep(current_quest['time'] * 60)
         write_to_stdin("set-quest 0")
         time.sleep((MIN_TIME_BETWEEN_QUESTS + random.randint(0, EXTRA_TIME_BETWEEN_QUESTS)) * 60)
         if quest_index < len(current_quest['quests']) - 1:
