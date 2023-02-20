@@ -31,10 +31,10 @@ event_data = [
 
 arks_quest_data = [
     [
-        {'id': 101, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
+        {'id': 101, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
         {'id': 102, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the caves!'},
-        {'id': 103, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
-        {'id': 104, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}],
+        {'id': 103, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
+        {'id': 104, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}],
     [
         {'id': 108, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest. Exterminate     them.'},
         {'id': 109, 'time': 32.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves. Exterminate      them.'},
