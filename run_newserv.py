@@ -20,7 +20,7 @@ event_data = [
     {'start': '04/01', 'event': 'easter'},
     {'start': '04/21', 'event': 'spring'},
     {'start': '06/07', 'event': 'wedding'},
-    {'start': '06/16', 'event': 'sonic'},
+    {'start': '06/12', 'event': 'sonic'},
     {'start': '07/01', 'event': 'summer'},
     {'start': '09/21', 'event': 'fall'},
     {'start': '10/01', 'event': 'hall'},
@@ -30,24 +30,24 @@ event_data = [
 ]
 
 arks_quest_data = [
-    {'time': 20, 'quests': [
-        {'id': 101, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
-        {'id': 102, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the caves!'},
-        {'id': 103, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
-        {'id': 104, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}]},
-    {'time': 27.5, 'quests': [
-        {'id': 108, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest. Exterminate     them.'},
-        {'id': 109, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves. Exterminate      them.'},
-        {'id': 110, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      mines. Exterminate      them.'},
-        {'id': 111, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      ruins. Exterminate      them.'}]},
-    {'time': 45, 'quests': [
-        {'id': 117, 'ann': 'We need your help with a top-secret mission!'}]},
-    {'time': 27.5, 'quests': [
-        {'id': 233, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the north  jungle and seaside!'},
-        {'id': 234, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
-        {'id': 235, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        seabed!'},
-        {'id': 236, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}]},
-    ]
+    [
+        {'id': 101, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
+        {'id': 102, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the caves!'},
+        {'id': 103, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
+        {'id': 104, 'time': 15, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}],
+    [
+        {'id': 108, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest. Exterminate     them.'},
+        {'id': 109, 'time': 32.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves. Exterminate      them.'},
+        {'id': 110, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      mines. Exterminate      them.'},
+        {'id': 111, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      ruins. Exterminate      them.'}],
+    [
+        {'id': 117, 'time': 45, 'ann': 'We need your help with a top-secret mission!'}],
+    [
+        {'id': 233, 'time': 27.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the north  jungle and seaside!'},
+        {'id': 234, 'time': 27.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
+        {'id': 235, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        seabed!'},
+        {'id': 236, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}],
+]
 
 MIN_TIME_BETWEEN_QUESTS = 6
 EXTRA_TIME_BETWEEN_QUESTS = 4
@@ -62,20 +62,20 @@ def arks_quest_manager():
     while RUNNING:
         if quest_index == 0:
             new_quest = random.choice(arks_quest_data)
-            if current_quest != None and new_quest['quests'][quest_index]['id'] == current_quest['quests'][quest_index]['id']:
+            if current_quest != None and new_quest[quest_index]['id'] == current_quest[quest_index]['id']:
                 continue
         current_quest = new_quest
         write_to_stdin("announce " + EMERGENCY_PRE_ANNOUNCEMENT)
         time.sleep(MINS_UNTIL_ANNOUNCEMENT * 60 - 1)
-        write_to_stdin("set-quest %d" % (current_quest['quests'][quest_index]['id']))
+        write_to_stdin("set-quest %d" % (current_quest[quest_index]['id']))
         time.sleep(1)
-        write_to_stdin("announce " + current_quest['quests'][quest_index]['ann'])
+        write_to_stdin("announce " + current_quest[quest_index]['ann'])
         time.sleep(7.5)
         write_to_stdin("announce " + EMERGENCY_POST_ANNOUNCEMENT)
-        time.sleep(current_quest['time'] * 60)
+        time.sleep(current_quest[quest_index]['time'] * 60)
         write_to_stdin("set-quest 0")
         time.sleep((MIN_TIME_BETWEEN_QUESTS + random.randint(0, EXTRA_TIME_BETWEEN_QUESTS)) * 60)
-        if quest_index < len(current_quest['quests']) - 1:
+        if quest_index < len(current_quest) - 1:
             quest_index += 1
         else:
             quest_index = 0
