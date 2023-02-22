@@ -31,27 +31,27 @@ event_data = [
 
 arks_quest_data = [
     [
-        {'id': 101, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
+        {'id': 101, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the forest!'},
         {'id': 102, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the caves!'},
-        {'id': 103, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
-        {'id': 104, 'time': 17.5, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}],
+        {'id': 103, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the mines!'},
+        {'id': 104, 'time': 20, 'ann': 'The 32nd WORKS divisionof the Pioneer 2 outer space task force needsyour help in the ruins!'}],
     [
-        {'id': 108, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest. Exterminate     them.'},
-        {'id': 109, 'time': 32.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves. Exterminate      them.'},
-        {'id': 110, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      mines. Exterminate      them.'},
-        {'id': 111, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      ruins. Exterminate      them.'}],
+        {'id': 108, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      forest.'},
+        {'id': 109, 'time': 32.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      caves.'},
+        {'id': 110, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      mines.'},
+        {'id': 111, 'time': 27.5, 'ann': 'Monsters seem to be   constantly regeneratingin one area of the      ruins.'}],
     [
-        {'id': 117, 'time': 45, 'ann': 'We need your help with a top-secret mission!'}],
+        {'id': 117, 'time': 15, 'ann': 'We need your help with a top-secret mission!'}],
     [
         {'id': 233, 'time': 27.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the north  jungle and seaside!'},
-        {'id': 234, 'time': 27.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
-        {'id': 235, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        seabed!'},
-        {'id': 236, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}],
+        {'id': 234, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the        mountains!'},
+        {'id': 235, 'time': 32.5, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the         seabed!'},
+        {'id': 236, 'time': 10, 'ann': 'A large number of      monsters have appearedon Gal Da Val Island! Weneed help in the east   and west towers!'}],
 ]
 
 MIN_TIME_BETWEEN_QUESTS = 6
 EXTRA_TIME_BETWEEN_QUESTS = 4
-EMERGENCY_PRE_ANNOUNCEMENT = "CALLING ARKS MEMBERS!EMERGENCY MESSAGE    INCOMING PLEASE STANDBY FOR FURTHER         INSTURCTIONS"
+EMERGENCY_PRE_ANNOUNCEMENT = "CALLING ALL HUNTERS!  EMERGENCY MESSAGE    INCOMING PLEASE        STANDBY FOR MORE      INFORMATION"
 EMERGENCY_POST_ANNOUNCEMENT ="PLEASE REPORT TO THE QUEST COUNTER FOR     FURTHER INSTRUCTIONS"
 MINS_UNTIL_ANNOUNCEMENT = 1
 
