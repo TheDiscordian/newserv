@@ -83,10 +83,14 @@ def arks_quest_manager():
 # Return the current event
 def current_event():
     now = time.localtime()
+    revent = None
     for event in event_data:
         if now.tm_mon >= int(event['start'][:2]) and now.tm_mday >= int(event['start'][3:]):
-            return event['event']
-    return event_data[-1]['event']
+            revent = event['event']
+    if revent == None:
+        return event_data[-1]['event']
+    else:
+        return revent
 
 last_event = current_event()
 
